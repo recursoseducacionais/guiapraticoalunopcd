@@ -1,0 +1,1823 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tenho um Aluno Público da Educação Especial — E agora?</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fraunces:ital,wght@0,300;0,700;1,300;1,700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --amarelo: #FFD94A;
+    --amarelo-escuro: #F5C200;
+    --azul: #2D6A9F;
+    --azul-claro: #5BA3D9;
+    --verde: #3DAA6E;
+    --verde-claro: #B6E8CE;
+    --laranja: #F07B39;
+    --laranja-claro: #FFE0CB;
+    --lilas: #8B6FC4;
+    --lilas-claro: #E5DEFF;
+    --rosa: #E05C8A;
+    --rosa-claro: #FFD9E8;
+    --cinza-claro: #F4F4F0;
+    --cinza: #6B6B6B;
+    --preto: #1A1A1A;
+    --branco: #FAFAF7;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--branco);
+    color: var(--preto);
+    overflow-x: hidden;
+  }
+
+  /* ====== NAV LATERAL ====== */
+  #sidebar {
+    position: fixed;
+    left: 0; top: 0;
+    width: 260px;
+    height: 100vh;
+    background: var(--azul);
+    color: white;
+    padding: 24px 0;
+    overflow-y: auto;
+    z-index: 100;
+    transition: transform 0.3s ease;
+  }
+
+  #sidebar .logo {
+    padding: 0 24px 24px;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+    margin-bottom: 16px;
+  }
+
+  #sidebar .logo h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--amarelo);
+  }
+
+  #sidebar .logo p {
+    font-size: 0.7rem;
+    opacity: 0.7;
+    margin-top: 4px;
+  }
+
+  #sidebar nav a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 11px 24px;
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 600;
+    transition: all 0.2s;
+    border-left: 3px solid transparent;
+  }
+
+  #sidebar nav a:hover,
+  #sidebar nav a.active {
+    background: rgba(255,255,255,0.1);
+    color: white;
+    border-left-color: var(--amarelo);
+  }
+
+  #sidebar nav a .icon {
+    font-size: 1.1rem;
+    min-width: 22px;
+    text-align: center;
+  }
+
+  /* ====== TOGGLE MOBILE ====== */
+  #menu-toggle {
+    display: none;
+    position: fixed;
+    top: 16px; left: 16px;
+    z-index: 200;
+    background: var(--azul);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    width: 42px; height: 42px;
+    font-size: 1.3rem;
+    cursor: pointer;
+  }
+
+  /* ====== MAIN ====== */
+  #main {
+    margin-left: 260px;
+    min-height: 100vh;
+  }
+
+  /* ====== SEÇÕES ====== */
+  .section {
+    display: none;
+    min-height: 100vh;
+    animation: fadeIn 0.4s ease;
+  }
+
+  .section.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ====== CAPA ====== */
+  #capa {
+    background: var(--amarelo);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 60px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #capa::before {
+    content: '';
+    position: absolute;
+    width: 500px; height: 500px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 50%;
+    top: -150px; right: -150px;
+  }
+
+  #capa::after {
+    content: '';
+    position: absolute;
+    width: 300px; height: 300px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 50%;
+    bottom: -80px; left: -80px;
+  }
+
+  #capa .badge {
+    background: var(--azul);
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 32px;
+    position: relative; z-index: 1;
+  }
+
+  #capa h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--preto);
+    max-width: 600px;
+    position: relative; z-index: 1;
+    margin-bottom: 16px;
+  }
+
+  #capa h1 em {
+    font-style: italic;
+    color: var(--azul);
+  }
+
+  #capa .subtitulo {
+    font-size: 1.1rem;
+    color: rgba(0,0,0,0.6);
+    margin-bottom: 48px;
+    position: relative; z-index: 1;
+  }
+
+  #capa .btn-start {
+    background: var(--azul);
+    color: white;
+    border: none;
+    padding: 16px 40px;
+    border-radius: 50px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1rem;
+    font-weight: 800;
+    cursor: pointer;
+    position: relative; z-index: 1;
+    transition: all 0.2s;
+    box-shadow: 0 4px 20px rgba(45,106,159,0.4);
+  }
+
+  #capa .btn-start:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(45,106,159,0.5);
+  }
+
+  /* ====== SEÇÃO PADRÃO ====== */
+  .sec-header {
+    padding: 56px 56px 40px;
+    border-bottom: 1px solid rgba(0,0,0,0.07);
+  }
+
+  .sec-tag {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+  }
+
+  .sec-header h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 12px;
+  }
+
+  .sec-header p.lead {
+    font-size: 1.05rem;
+    color: var(--cinza);
+    line-height: 1.7;
+    max-width: 680px;
+  }
+
+  .sec-body {
+    padding: 48px 56px 80px;
+  }
+
+  /* ====== CARDS ====== */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    margin-top: 32px;
+  }
+
+  .card {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    border: 1.5px solid rgba(0,0,0,0.07);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  }
+
+  .card .card-icon {
+    font-size: 2rem;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .card h3 {
+    font-size: 0.95rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+  }
+
+  .card p, .card li {
+    font-size: 0.88rem;
+    color: var(--cinza);
+    line-height: 1.65;
+  }
+
+  .card ul { padding-left: 16px; }
+  .card ul li { margin-bottom: 4px; }
+
+  /* ====== GLOSSÁRIO ====== */
+  .glossario-item {
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 12px;
+    border-left: 4px solid;
+  }
+
+  .glossario-item h3 {
+    font-size: 0.9rem;
+    font-weight: 800;
+    margin-bottom: 6px;
+  }
+
+  .glossario-item p {
+    font-size: 0.875rem;
+    color: #444;
+    line-height: 1.65;
+  }
+
+  .glossario-item .numero {
+    font-family: 'Fraunces', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    float: right;
+    opacity: 0.18;
+    margin-top: -4px;
+  }
+
+  /* ====== TABELA ACOMODAÇÕES ====== */
+  .tabela-comp {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 32px;
+  }
+
+  .tabela-col {
+    border-radius: 16px;
+    padding: 28px;
+  }
+
+  .tabela-col h3 {
+    font-size: 1rem;
+    font-weight: 800;
+    margin-bottom: 6px;
+  }
+
+  .tabela-col .def {
+    font-size: 0.82rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    opacity: 0.8;
+  }
+
+  .tabela-col ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .tabela-col ul li {
+    font-size: 0.84rem;
+    padding: 7px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    line-height: 1.5;
+  }
+
+  .tabela-col ul li::before {
+    content: '→';
+    opacity: 0.5;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* ====== CHECKLIST ====== */
+  .checklist {
+    list-style: none;
+    padding: 0;
+    margin-top: 24px;
+  }
+
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .checklist li .check-box {
+    width: 22px; height: 22px;
+    border-radius: 6px;
+    border: 2px solid currentColor;
+    flex-shrink: 0;
+    margin-top: 1px;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem;
+  }
+
+  .checklist li .check-box.checked {
+    background: currentColor;
+    color: white;
+  }
+
+  .checklist li .check-box.checked::after { content: '✓'; color: white; }
+
+  /* ====== DESTAQUE / AVISO ====== */
+  .destaque {
+    border-radius: 14px;
+    padding: 20px 24px;
+    margin: 24px 0;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .destaque .icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
+
+  .destaque p, .destaque li {
+    font-size: 0.875rem;
+    line-height: 1.7;
+  }
+
+  .destaque strong { font-weight: 800; }
+
+  /* ====== MATERIAIS GRID ====== */
+  .mat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+    margin-top: 32px;
+  }
+
+  .mat-card {
+    border-radius: 14px;
+    padding: 20px;
+  }
+
+  .mat-card h3 {
+    font-size: 0.85rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .mat-card ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .mat-card ul li {
+    font-size: 0.82rem;
+    padding: 4px 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    line-height: 1.5;
+    color: #444;
+  }
+
+  .mat-card ul li::before { content: '·'; font-weight: 800; opacity: 0.4; flex-shrink: 0; }
+
+  /* ====== PAPÉIS DA EQUIPE ====== */
+  .equipe-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+    margin-top: 32px;
+  }
+
+  .equipe-card {
+    border-radius: 16px;
+    padding: 24px;
+    border-top: 4px solid;
+  }
+
+  .equipe-card h3 {
+    font-size: 0.95rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+  }
+
+  .equipe-card .resp {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.6;
+    margin-bottom: 12px;
+  }
+
+  .equipe-card ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .equipe-card ul li {
+    font-size: 0.83rem;
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    line-height: 1.5;
+    display: flex; gap: 6px;
+    color: #444;
+  }
+
+  .equipe-card ul li::before { content: '→'; opacity: 0.4; flex-shrink: 0; }
+
+  /* ====== FLUXO ====== */
+  .fluxo {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 32px;
+    max-width: 640px;
+  }
+
+  .fluxo-step {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+
+  .fluxo-step .linha {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    flex-shrink: 0;
+  }
+
+  .fluxo-step .dot {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 900;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+    color: white;
+  }
+
+  .fluxo-step .conector {
+    width: 2px;
+    flex: 1;
+    min-height: 30px;
+    background: rgba(0,0,0,0.1);
+    margin: 4px 0;
+  }
+
+  .fluxo-step:last-child .conector { display: none; }
+
+  .fluxo-step .content {
+    padding-bottom: 28px;
+  }
+
+  .fluxo-step .content h4 {
+    font-size: 0.95rem;
+    font-weight: 800;
+    margin-bottom: 4px;
+    margin-top: 4px;
+  }
+
+  .fluxo-step .content p {
+    font-size: 0.85rem;
+    color: var(--cinza);
+    line-height: 1.65;
+  }
+
+  /* ====== CRISE ====== */
+  .crise-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 24px;
+  }
+
+  .crise-col {
+    border-radius: 14px;
+    padding: 24px;
+  }
+
+  .crise-col h3 {
+    font-size: 0.9rem;
+    font-weight: 800;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .crise-col ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .crise-col ul li {
+    font-size: 0.84rem;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    line-height: 1.5;
+    color: #444;
+    display: flex; gap: 8px; align-items: flex-start;
+  }
+
+  /* ====== LEGISLAÇÃO ====== */
+  .lei-card {
+    border-radius: 14px;
+    padding: 22px 26px;
+    margin-bottom: 16px;
+    border-left: 5px solid;
+  }
+
+  .lei-card h3 {
+    font-size: 0.95rem;
+    font-weight: 800;
+    margin-bottom: 6px;
+  }
+
+  .lei-card p {
+    font-size: 0.84rem;
+    color: #444;
+    line-height: 1.65;
+  }
+
+  /* ====== AUTOCUIDADO ====== */
+  .autocuidado-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 20px;
+    margin-top: 32px;
+  }
+
+  .ac-card {
+    border-radius: 16px;
+    padding: 24px;
+    text-align: center;
+  }
+
+  .ac-card .emoji { font-size: 2.5rem; margin-bottom: 12px; display: block; }
+  .ac-card h3 { font-size: 0.9rem; font-weight: 800; margin-bottom: 8px; }
+  .ac-card p { font-size: 0.83rem; color: #555; line-height: 1.65; }
+
+  /* ====== NAV BOTTOM ====== */
+  .nav-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 56px;
+    border-top: 1px solid rgba(0,0,0,0.07);
+    margin-top: 40px;
+  }
+
+  .nav-bottom button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: none;
+    border: 2px solid rgba(0,0,0,0.12);
+    border-radius: 50px;
+    padding: 10px 22px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--preto);
+  }
+
+  .nav-bottom button:hover {
+    background: var(--azul);
+    color: white;
+    border-color: var(--azul);
+  }
+
+  .nav-bottom button:disabled {
+    opacity: 0.3;
+    cursor: default;
+  }
+
+  .nav-bottom button:disabled:hover {
+    background: none;
+    color: var(--preto);
+    border-color: rgba(0,0,0,0.12);
+  }
+
+  .nav-bottom .progresso {
+    font-size: 0.78rem;
+    color: var(--cinza);
+    font-weight: 600;
+  }
+
+  /* ====== CORES POR SEÇÃO ====== */
+  #intro .sec-tag { background: var(--amarelo); color: var(--preto); }
+  #intro .sec-header h2 { color: var(--azul); }
+
+  #vocabulario .sec-tag { background: var(--lilas-claro); color: var(--lilas); }
+  #vocabulario .sec-header h2 { color: var(--lilas); }
+
+  #preparacao .sec-tag { background: var(--verde-claro); color: var(--verde); }
+  #preparacao .sec-header h2 { color: var(--verde); }
+
+  #comunicacao .sec-tag { background: var(--azul-claro); color: white; }
+  #comunicacao .sec-header h2 { color: var(--azul); }
+
+  #comportamento .sec-tag { background: var(--laranja-claro); color: var(--laranja); }
+  #comportamento .sec-header h2 { color: var(--laranja); }
+
+  #acomodacoes .sec-tag { background: var(--amarelo); color: var(--preto); }
+  #acomodacoes .sec-header h2 { color: var(--azul); }
+
+  #avaliacoes .sec-tag { background: var(--rosa-claro); color: var(--rosa); }
+  #avaliacoes .sec-header h2 { color: var(--rosa); }
+
+  #materiais .sec-tag { background: var(--verde-claro); color: var(--verde); }
+  #materiais .sec-header h2 { color: var(--verde); }
+
+  #equipe .sec-tag { background: var(--lilas-claro); color: var(--lilas); }
+  #equipe .sec-header h2 { color: var(--lilas); }
+
+  #crise .sec-tag { background: var(--laranja-claro); color: var(--laranja); }
+  #crise .sec-header h2 { color: var(--laranja); }
+
+  #legislacao .sec-tag { background: var(--azul-claro); color: white; }
+  #legislacao .sec-header h2 { color: var(--azul); }
+
+  #autocuidado .sec-tag { background: var(--rosa-claro); color: var(--rosa); }
+  #autocuidado .sec-header h2 { color: var(--rosa); }
+
+  /* ====== RESPONSIVIDADE ====== */
+  @media (max-width: 768px) {
+    #sidebar { transform: translateX(-100%); }
+    #sidebar.open { transform: translateX(0); }
+    #menu-toggle { display: flex; align-items: center; justify-content: center; }
+    #main { margin-left: 0; }
+    .sec-header { padding: 56px 24px 32px; }
+    .sec-body { padding: 32px 24px 64px; }
+    .tabela-comp { grid-template-columns: 1fr; }
+    .crise-grid { grid-template-columns: 1fr; }
+    .nav-bottom { padding: 20px 24px; }
+    #capa { padding: 48px 24px; }
+  }
+
+  /* ====== SCROLLBAR ====== */
+  #sidebar::-webkit-scrollbar { width: 4px; }
+  #sidebar::-webkit-scrollbar-track { background: transparent; }
+  #sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
+
+  h4 { font-size: 1rem; font-weight: 800; margin: 24px 0 10px; }
+  p { line-height: 1.7; }
+</style>
+</head>
+<body>
+
+<!-- TOGGLE MOBILE -->
+<button id="menu-toggle" onclick="toggleSidebar()">☰</button>
+
+<!-- SIDEBAR -->
+<aside id="sidebar">
+  <div class="logo">
+    <h2>Tenho um Aluno Público da Educação Especial</h2>
+    <p>Guia Prático — Educação Básica</p>
+  </div>
+  <nav id="nav-links">
+    <a href="javascript:void(0)" class="active" onclick="goTo(0)" data-idx="0"><span class="icon">🏠</span> Início</a>
+    <a href="javascript:void(0)" onclick="goTo(1)" data-idx="1"><span class="icon">📖</span> Introdução</a>
+    <a href="javascript:void(0)" onclick="goTo(2)" data-idx="2"><span class="icon">📚</span> Vocabulário Essencial</a>
+    <a href="javascript:void(0)" onclick="goTo(3)" data-idx="3"><span class="icon">✅</span> Preparação</a>
+    <a href="javascript:void(0)" onclick="goTo(4)" data-idx="4"><span class="icon">💬</span> Comunicação</a>
+    <a href="javascript:void(0)" onclick="goTo(5)" data-idx="5"><span class="icon">🧠</span> Comportamento</a>
+    <a href="javascript:void(0)" onclick="goTo(6)" data-idx="6"><span class="icon">🔧</span> Acomodações e Modificações</a>
+    <a href="javascript:void(0)" onclick="goTo(7)" data-idx="7"><span class="icon">📊</span> Objetivos e Avaliação</a>
+    <a href="javascript:void(0)" onclick="goTo(8)" data-idx="8"><span class="icon">🗂️</span> Materiais Úteis</a>
+    <a href="javascript:void(0)" onclick="goTo(9)" data-idx="9"><span class="icon">👥</span> Quem Faz o Quê?</a>
+    <a href="javascript:void(0)" onclick="goTo(10)" data-idx="10"><span class="icon">🆘</span> Situações de Crise</a>
+    <a href="javascript:void(0)" onclick="goTo(11)" data-idx="11"><span class="icon">⚖️</span> O Que Diz a Lei</a>
+    <a href="javascript:void(0)" onclick="goTo(12)" data-idx="12"><span class="icon">🌱</span> Cuidando de Você</a>
+  </nav>
+</aside>
+
+<!-- MAIN -->
+<main id="main">
+
+  <!-- 0. CAPA -->
+  <section class="section active" id="capa-sec">
+    <div id="capa">
+      <div class="badge">Guia Prático · Educação Básica</div>
+      <h1>Tenho um aluno público<br>da educação especial.<br><em>E agora?</em></h1>
+      <p class="subtitulo">Um guia para professores do Ensino Fundamental e Médio<br>fundamentado na LBI e no Decreto nº 12.686/2025</p>
+      <button class="btn-start" onclick="goTo(1)">Começar a leitura →</button>
+    </div>
+  </section>
+
+  <!-- 1. INTRODUÇÃO -->
+  <section class="section" id="intro">
+    <div class="sec-header">
+      <span class="sec-tag">Introdução</span>
+      <h2>Por que este guia existe?</h2>
+      <p class="lead">Este material foi desenvolvido para apoiar professores que recebem estudantes público da educação especial em suas salas de aula e que desejam agir com segurança, responsabilidade e acolhimento.</p>
+    </div>
+    <div class="sec-body">
+      <p style="font-size:0.95rem; line-height:1.8; color:#444; max-width:680px;">
+        Receber um estudante com deficiência, transtorno do espectro autista (TEA) ou altas habilidades/superdotação pode parecer desafiador à primeira vista — especialmente quando a formação inicial não preparou o professor para esse encontro. Mas com organização, comunicação eficiente e estratégias práticas, é possível criar um ambiente acolhedor e inclusivo que favoreça a aprendizagem de <strong>todos</strong>.
+      </p>
+
+      <div class="destaque" style="background: #FFF8DC; margin-top: 32px;">
+        <span class="icon">💡</span>
+        <p><strong>Lembre-se:</strong> a inclusão não é apenas uma obrigação legal — é um compromisso ético e pedagógico. Cada adaptação feita, cada diálogo promovido e cada estratégia aplicada têm o potencial de transformar a trajetória escolar de um estudante e contribuir para uma escola mais justa e equitativa.</p>
+      </div>
+
+      <h4>O que você vai encontrar aqui</h4>
+      <div class="cards-grid">
+        <div class="card">
+          <span class="card-icon">📚</span>
+          <h3>Vocabulário atualizado</h3>
+          <p>Termos alinhados à Lei Brasileira de Inclusão (LBI) e ao Decreto nº 12.686/2025, com definições claras e contextualizadas.</p>
+        </div>
+        <div class="card">
+          <span class="card-icon">🗂️</span>
+          <h3>Preparação e planejamento</h3>
+          <p>Como ler e usar o PDI/PEI, articulá-lo ao PAEE e organizar sua prática pedagógica desde o primeiro dia.</p>
+        </div>
+        <div class="card">
+          <span class="card-icon">🤝</span>
+          <h3>Trabalho em equipe</h3>
+          <p>Entenda os papéis do professor de AEE, do profissional de apoio escolar, da família e do próprio estudante.</p>
+        </div>
+        <div class="card">
+          <span class="card-icon">🔧</span>
+          <h3>Acomodações e modificações</h3>
+          <p>Exemplos práticos de como adaptar conteúdos, atividades e avaliações de forma eficiente e humanizada.</p>
+        </div>
+        <div class="card">
+          <span class="card-icon">⚖️</span>
+          <h3>Respaldo legal</h3>
+          <p>Seus direitos e os direitos do estudante, com base na legislação vigente — para você cobrar e ser cobrado com segurança.</p>
+        </div>
+        <div class="card">
+          <span class="card-icon">🌱</span>
+          <h3>Autocuidado docente</h3>
+          <p>Orientações para sustentar uma prática inclusiva sem se sobrecarregar — porque você também precisa de apoio.</p>
+        </div>
+      </div>
+
+      <div class="destaque" style="background: var(--lilas-claro); margin-top: 40px;">
+        <span class="icon">📌</span>
+        <div>
+          <p><strong>Sobre a terminologia deste guia:</strong> usamos "estudante público da educação especial" para nos referir a estudantes com deficiência, TEA e altas habilidades/superdotação, em conformidade com o Decreto nº 12.686/2025. Evitamos o termo "necessidades especiais", considerado impreciso e ultrapassado pela legislação vigente, pois todo ser humano tem necessidades.</p>
+        </div>
+      </div>
+    </div>
+    <div class="nav-bottom">
+      <button disabled>← Anterior</button>
+      <span class="progresso">1 de 13</span>
+      <button onclick="goTo(2)">Próximo →</button>
+    </div>
+  </section>
+
+  <!-- 2. VOCABULÁRIO -->
+  <section class="section" id="vocabulario">
+    <div class="sec-header">
+      <span class="sec-tag">Vocabulário Essencial</span>
+      <h2>Termos que você precisa conhecer</h2>
+      <p class="lead">Antes de qualquer estratégia prática, é fundamental que todos falem a mesma língua. Este glossário está alinhado à legislação brasileira vigente.</p>
+    </div>
+    <div class="sec-body">
+
+      <div class="glossario-item" style="background:#FFF8DC; border-color: var(--amarelo-escuro);">
+        <span class="numero">01</span>
+        <h3>Estudante Público da Educação Especial</h3>
+        <p>Termo oficial, conforme o Decreto nº 12.686/2025, que se refere a estudantes com <strong>deficiência</strong>, <strong>transtorno do espectro autista (TEA)</strong> e <strong>altas habilidades/superdotação</strong>. Substitui expressões como "necessidades especiais" ou "portador de deficiência", consideradas imprecisas ou desatualizadas.</p>
+      </div>
+
+      <div class="glossario-item" style="background:#EEF5FF; border-color: var(--azul-claro);">
+        <span class="numero">02</span>
+        <h3>PCD — Pessoa com Deficiência</h3>
+        <p>Terminologia consolidada pela Convenção da ONU sobre os Direitos das Pessoas com Deficiência e pela Lei Brasileira de Inclusão (Lei nº 13.146/2015). Reforça o respeito à diversidade e à dignidade. A deficiência resulta da interação entre a condição da pessoa e as <strong>barreiras impostas pela sociedade</strong> — não é uma característica exclusiva do indivíduo.</p>
+      </div>
+
+      <div class="glossario-item" style="background:var(--lilas-claro); border-color: var(--lilas);">
+        <span class="numero">03</span>
+        <h3>PAEE — Plano de Atendimento Educacional Especializado</h3>
+        <p>Instrumento oficial elaborado pelo <strong>professor de AEE</strong>, com base no Estudo de Caso do estudante. Define o atendimento na sala de recursos multifuncionais, os recursos de acessibilidade necessários e as orientações para a sala de aula regular. É o documento com primazia legal na organização do AEE.</p>
+      </div>
+
+      <div class="glossario-item" style="background:var(--verde-claro); border-color: var(--verde);">
+        <span class="numero">04</span>
+        <h3>PDI / PEI — Plano de Desenvolvimento / Educacional Individualizado</h3>
+        <p>Instrumento elaborado <strong>colaborativamente</strong> entre professor regente, professor de AEE, família e, sempre que possível, o próprio estudante. Descreve metas, estratégias de ensino e adaptações para a sala de aula regular. Deve estar alinhado ao PAEE. <em>Diferença importante: o PAEE é elaborado pelo AEE; o PDI/PEI é o plano para a sala comum.</em></p>
+      </div>
+
+      <div class="glossario-item" style="background:var(--laranja-claro); border-color: var(--laranja);">
+        <span class="numero">05</span>
+        <h3>Estudo de Caso</h3>
+        <p>Processo de avaliação multidimensional conduzido pelo professor de AEE, em articulação com a equipe escolar e a família, para identificar as necessidades, potencialidades e barreiras do estudante. É a base para a elaboração do PAEE. <strong>O professor regente é um informante essencial</strong> desse processo, mas não o conduz sozinho.</p>
+      </div>
+
+      <div class="glossario-item" style="background:#EEF5FF; border-color: var(--azul-claro);">
+        <span class="numero">06</span>
+        <h3>AEE — Atendimento Educacional Especializado</h3>
+        <p>Serviço de natureza pedagógica, desenvolvido preferencialmente em sala de recursos multifuncionais, que complementa a escolarização do estudante público da educação especial. O AEE <strong>não substitui</strong> a sala de aula regular — os dois funcionam de forma articulada.</p>
+      </div>
+
+      <div class="glossario-item" style="background:var(--rosa-claro); border-color: var(--rosa);">
+        <span class="numero">07</span>
+        <h3>Profissional de Apoio Escolar</h3>
+        <p>Profissional que atua junto ao estudante para apoio em <strong>locomoção, alimentação, comunicação e participação</strong> nas atividades. Sua atuação é definida pelo PAEE e <strong>não substitui o professor</strong> nem se confunde com auxiliar de classe. O professor regente continua sendo responsável pelo processo de ensino e aprendizagem.</p>
+      </div>
+
+      <div class="glossario-item" style="background:var(--verde-claro); border-color: var(--verde);">
+        <span class="numero">08</span>
+        <h3>TEA — Transtorno do Espectro Autista</h3>
+        <p>Condição do neurodesenvolvimento caracterizada por variações na comunicação social e por padrões de comportamento, interesses ou atividades restritos e repetitivos. O termo "Transtornos Globais do Desenvolvimento (TGD)" é uma nomenclatura anterior (DSM-IV), substituída pelo DSM-5 e pela CID-11, e não deve ser usada em documentos atuais.</p>
+      </div>
+
+      <div class="glossario-item" style="background:var(--amarelo); border-color: var(--amarelo-escuro);">
+        <span class="numero">09</span>
+        <h3>Altas Habilidades / Superdotação</h3>
+        <p>Condição caracterizada por desempenho notável ou potencial elevado em uma ou mais áreas (intelectual, criativa, artística, esportiva etc.). Esses estudantes também são público da educação especial e podem precisar de <strong>enriquecimento curricular e adaptações específicas</strong> para desenvolver plenamente seus potenciais.</p>
+      </div>
+
+      <div class="glossario-item" style="background:var(--lilas-claro); border-color: var(--lilas);">
+        <span class="numero">10</span>
+        <h3>Acomodações</h3>
+        <p>Mudanças na <strong>forma</strong> como o conteúdo é apresentado ou avaliado, sem alterar o que está sendo ensinado. O nível de expectativa de aprendizagem permanece o mesmo. Exemplo: tempo extra em avaliações, uso de recursos visuais, respostas orais.</p>
+      </div>
+
+      <div class="glossario-item" style="background:var(--laranja-claro); border-color: var(--laranja);">
+        <span class="numero">11</span>
+        <h3>Modificações / Adaptações Curriculares</h3>
+        <p>Mudanças no <strong>conteúdo ou nas expectativas</strong> de aprendizagem, adaptando o que é ensinado às capacidades e ao momento do estudante. Exemplo: redução no número de questões, uso de material em nível de complexidade diferente. Modificações devem estar registradas no PDI/PEI.</p>
+      </div>
+
+      <div class="glossario-item" style="background:#EEF5FF; border-color: var(--azul-claro);">
+        <span class="numero">12</span>
+        <h3>Tecnologias Assistivas</h3>
+        <p>Ferramentas, recursos e estratégias tecnológicas que auxiliam na ampliação das habilidades funcionais de pessoas com deficiência: leitores de tela, comunicadores alternativos, lupas eletrônicas, softwares de síntese de voz, PECS (sistema de comunicação por troca de figuras), entre outros.</p>
+      </div>
+
+      <div class="glossario-item" style="background:var(--rosa-claro); border-color: var(--rosa);">
+        <span class="numero">13</span>
+        <h3>Acessibilidade Atitudinal</h3>
+        <p>A dimensão da acessibilidade que diz respeito às <strong>posturas, valores e comportamentos</strong> das pessoas — professores, colegas, gestores. É a forma de acessibilidade mais ignorada na prática escolar e uma das mais impactantes: nenhuma adaptação curricular funciona plenamente em um ambiente de preconceito ou indiferença.</p>
+      </div>
+
+    </div>
+    <div class="nav-bottom">
+      <button onclick="goTo(1)">← Anterior</button>
+      <span class="progresso">2 de 13</span>
+      <button onclick="goTo(3)">Próximo →</button>
+    </div>
+  </section>
+
+  <!-- 3. PREPARAÇÃO -->
+  <section class="section" id="preparacao">
+    <div class="sec-header">
+      <span class="sec-tag">Preparação</span>
+      <h2>A coisa mais importante que você pode fazer é se preparar</h2>
+      <p class="lead">Antes do primeiro dia com o estudante, há um conjunto de ações que fazem toda a diferença. A preparação não é burocracia — é cuidado pedagógico.</p>
+    </div>
+    <div class="sec-body">
+
+      <h4>Passo a passo da preparação</h4>
+      <div class="fluxo">
+        <div class="fluxo-step">
+          <div class="linha">
+            <div class="dot" style="background: var(--verde);">1</div>
+            <div class="conector"></div>
+          </div>
+          <div class="content">
+            <h4>Leia o PDI/PEI e o PAEE</h4>
+            <p>Solicite os documentos ao professor de AEE antes do início das aulas. Leia com atenção as metas, estratégias e acomodações previstas. Esses documentos orientam sua prática e têm base legal — o descumprimento pode ser caracterizado como negação de direito.</p>
+          </div>
+        </div>
+        <div class="fluxo-step">
+          <div class="linha">
+            <div class="dot" style="background: var(--verde);">2</div>
+            <div class="conector"></div>
+          </div>
+          <div class="content">
+            <h4>Crie uma pasta de acompanhamento</h4>
+            <p>Organize uma pasta física ou digital com: PDI/PEI, metas do estudante, planilhas de acompanhamento, amostras de trabalho e registros de observação. Mantenha-a acessível e atualizada — será essencial nos relatórios de progresso e nas reuniões de equipe.</p>
+          </div>
+        </div>
+        <div class="fluxo-step">
+          <div class="linha">
+            <div class="dot" style="background: var(--verde);">3</div>
+            <div class="conector"></div>
+          </div>
+          <div class="content">
+            <h4>Faça suas próprias observações iniciais</h4>
+            <p>O PDI/PEI foi elaborado em outro momento. Observe o estudante em situações de aprendizagem sem preconceitos formados por diagnósticos. Registre: como ele se comunica, quais situações geram engajamento, onde aparecem as dificuldades. Isso enriquece o documento e personaliza sua prática.</p>
+          </div>
+        </div>
+        <div class="fluxo-step">
+          <div class="linha">
+            <div class="dot" style="background: var(--verde);">4</div>
+            <div class="conector"></div>
+          </div>
+          <div class="content">
+            <h4>Reúna-se com o professor de AEE</h4>
+            <p>Antes de iniciar, converse com o professor de AEE (que também exerce o papel de articulador pedagógico). Pergunte sobre estratégias que funcionaram anteriormente, sobre o histórico do estudante e sobre os recursos disponíveis na escola. Essa parceria é fundamental.</p>
+          </div>
+        </div>
+        <div class="fluxo-step">
+          <div class="linha">
+            <div class="dot" style="background: var(--verde);">5</div>
+            <div class="conector"></div>
+          </div>
+          <div class="content">
+            <h4>Conheça a família</h4>
+            <p>Apresente-se antes do início das aulas ou nos primeiros dias. A família é uma fonte insubstituível de informações sobre o estudante — seus interesses, rotinas, formas de comunicação e o que funciona fora da escola. Estabeleça uma relação de parceria, não apenas de repasse de informações.</p>
+          </div>
+        </div>
+        <div class="fluxo-step">
+          <div class="linha">
+            <div class="dot" style="background: var(--verde);">6</div>
+          </div>
+          <div class="content">
+            <h4>Prepare a turma</h4>
+            <p>Converse com os demais estudantes sobre diversidade, diferentes formas de aprender e o conceito de equidade (dar a cada um o que precisa, não o mesmo a todos). Isso reduz estigmas, estimula a empatia e cria uma turma mais colaborativa para todos.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="destaque" style="background: var(--verde-claro); margin-top: 40px;">
+        <span class="icon">⚠️</span>
+        <div>
+          <p><strong>Importante:</strong> adaptações e acomodações não dependem de laudo médico para serem implementadas. Conforme o Decreto nº 12.686/2025, a elegibilidade para suporte pedagógico pode ser definida pela avaliação pedagógica e pelas necessidades observadas no contexto escolar. Não condicione o atendimento ao estudante à apresentação de diagnóstico.</p>
+        </div>
+      </div>
+    </div>
+    <div class="nav-bottom">
+      <button onclick="goTo(2)">← Anterior</button>
+      <span class="progresso">3 de 13</span>
+      <button onclick="goTo(4)">Próximo →</button>
+    </div>
+  </section>
+
+  <!-- 4. COMUNICAÇÃO -->
+  <section class="section" id="comunicacao">
+    <div class="sec-header">
+      <span class="sec-tag">Comunicação</span>
+      <h2>A comunicação aberta e frequente é sua melhor aliada</h2>
+      <p class="lead">A inclusão não acontece em isolamento. Ela é construída na articulação constante entre professor regente, professor de AEE, outros profissionais e a família.</p>
+    </div>
+    <div class="sec-body">
+
+      <div class="cards-grid">
+        <div class="card">
+          <span class="card-icon">🏫</span>
+          <h3>Com a equipe escolar</h3>
+          <p>Estabeleça linhas de comunicação regulares com o professor de AEE, profissional de apoio e outros professores que atendem o mesmo estudante. Defina um horário semanal — mesmo que breve — para alinhar estratégias e dividir observações.</p>
+        </div>
+        <div class="card">
+          <span class="card-icon">🩺</span>
+          <h3>Com profissionais externos</h3>
+          <p>Quando o estudante é atendido por fonoaudiólogo, psicólogo, terapeuta ocupacional ou outros profissionais externos, pergunte ao professor de AEE como integrar as orientações terapêuticas ao contexto escolar. Evite agir com base em diagnósticos sem compreender o que eles significam na prática.</p>
+        </div>
+        <div class="card">
+          <span class="card-icon">👨‍👩‍👧</span>
+          <h3>Com a família</h3>
+          <p>Mais do que informar, <strong>escute</strong>. A família conhece o estudante de um jeito que a escola não conhece. Atualize-a sobre progressos — não apenas dificuldades. Construa uma relação de confiança mútua, que respeite o saber da família sobre seu filho.</p>
+        </div>
+        <div class="card">
+          <span class="card-icon">🧒</span>
+          <h3>Com o próprio estudante</h3>
+          <p>Sempre que possível, converse com o estudante sobre suas preferências, dificuldades e o que o ajuda a aprender. Mesmo estudantes não verbais comunicam suas necessidades — observe, pergunte de formas alternativas, use recursos visuais. O estudante é sujeito do seu processo, não apenas objeto do nosso planejamento.</p>
+        </div>
+        <div class="card">
+          <span class="card-icon">📋</span>
+          <h3>Registros compartilhados</h3>
+          <p>Documente as observações, ajustes realizados e estratégias que funcionaram. Esses registros são essenciais para a atualização do PDI/PEI, para os relatórios de progresso e para a continuidade do trabalho quando houver troca de professores.</p>
+        </div>
+        <div class="card">
+          <span class="card-icon">🔄</span>
+          <h3>Alinhamento contínuo</h3>
+          <p>A inclusão é um processo dinâmico. Faça ajustes conforme necessário e informe toda a equipe para que todos estejam alinhados. Uma estratégia que funcionou no início do ano pode precisar ser revista no segundo semestre.</p>
+        </div>
+      </div>
+
+      <div class="destaque" style="background: #EEF5FF; margin-top: 32px;">
+        <span class="icon">💬</span>
+        <div>
+          <p><strong>Sobre a participação do estudante:</strong> o Decreto nº 12.686/2025 estabelece o protagonismo dos estudantes público da educação especial na formulação, implementação e avaliação das ações pedagógicas voltadas a eles. Isso não é apenas um princípio — é um direito. Inclua o estudante nas conversas sobre suas adaptações, respeitando suas possibilidades comunicativas e sua faixa etária.</p>
+        </div>
+      </div>
+    </div>
+    <div class="nav-bottom">
+      <button onclick="goTo(3)">← Anterior</button>
+      <span class="progresso">4 de 13</span>
+      <button onclick="goTo(5)">Próximo →</button>
+    </div>
+  </section>
+
+  <!-- 5. COMPORTAMENTO -->
+  <section class="section" id="comportamento">
+    <div class="sec-header">
+      <span class="sec-tag">Comportamento</span>
+      <h2>O comportamento é comunicação</h2>
+      <p class="lead">Antes de reagir a um comportamento, pergunte: o que este estudante está tentando me dizer? O comportamento desafiador raramente é aleatório — ele tem uma função.</p>
+    </div>
+    <div class="sec-body">
+
+      <div class="destaque" style="background: var(--laranja-claro);">
+        <span class="icon">🔍</span>
+        <div>
+          <p><strong>Perspectiva psicopedagógica:</strong> o comportamento de um estudante é influenciado pelo vínculo com o professor, pelo ambiente da sala, pelo nível de dificuldade da tarefa, pelo estado emocional e por questões sensoriais. Antes de buscar "controlar" o comportamento, busque <strong>compreender a sua função</strong>.</p>
+        </div>
+      </div>
+
+      <h4 style="margin-top: 36px;">Perguntas que orientam a compreensão do comportamento</h4>
+      <div class="cards-grid">
+        <div class="card">
+          <span class="card-icon">😤</span>
+          <h3>Frustração acadêmica?</h3>
+          <p>A tarefa está muito acima do nível do estudante? Ele não compreendeu a instrução? A frustração é uma das causas mais frequentes de comportamentos desafiadores — e a mais acessível para o professor intervir diretamente.</p>
+        </div>
+        <div class="card">
+          <span class="card-icon">🔊</span>
+          <h3>Sobrecarga sensorial?</h3>
+          <p>Barulho, luz intensa, muitos estímulos simultâneos podem ser insuportáveis para alguns estudantes, especialmente com TEA ou TDAH. Observe se o comportamento aparece em contextos específicos da sala.</p>
+        </div>
+        <div class="card">
+          <span class="card-icon">💬</span>
+          <h3>Dificuldade de comunicação?</h3>
+          <p>Estudantes com limitações na comunicação verbal frequentemente expressam por meio do comportamento o que não conseguem dizer com palavras: dor, cansaço, medo, confusão.</p>
+        </div>
+        <div class="card">
+          <span class="card-icon">❤️</span>
+          <h3>Necessidade de vínculo?</h3>
+          <p>A busca por atenção do professor — mesmo que por vias inadequadas — pode indicar necessidade de mais presença e acolhimento. O vínculo seguro com o professor é um fator protetor fundamental.</p>
+        </div>
+      </div>
+
+      <h4>Estratégias práticas</h4>
+      <ul class="checklist" id="check-comportamento">
+        <li>
+          <div class="check-box" style="color: var(--laranja);" onclick="toggleCheck(this)"></div>
+          <span>Verifique se o estudante tem um Plano de Intervenção Comportamental (BIP). Leia-o, compreenda-o e aplique-o de forma consistente.</span>
+        </li>
+        <li>
+          <div class="check-box" style="color: var(--laranja);" onclick="toggleCheck(this)"></div>
+          <span>Identifique os <em>antecedentes</em> dos comportamentos (o que acontece imediatamente antes) e os <em>consequentes</em> (o que se segue). Isso ajuda a identificar a função do comportamento.</span>
+        </li>
+        <li>
+          <div class="check-box" style="color: var(--laranja);" onclick="toggleCheck(this)"></div>
+          <span>Implemente reforço positivo baseado em uma avaliação de preferências real — recompensas só funcionam se forem genuinamente desejadas pelo estudante.</span>
+        </li>
+        <li>
+          <div class="check-box" style="color: var(--laranja);" onclick="toggleCheck(this)"></div>
+          <span>Mantenha rotinas claras e previsíveis. A imprevisibilidade é estressante para muitos estudantes público da educação especial.</span>
+        </li>
+        <li>
+          <div class="check-box" style="color: var(--laranja);" onclick="toggleCheck(this)"></div>
+          <span>Use cronogramas visuais para antecipar a sequência das atividades — a antecipação reduz a ansiedade.</span>
+        </li>
+        <li>
+          <div class="check-box" style="color: var(--laranja);" onclick="toggleCheck(this)"></div>
+          <span>Tenha um espaço de autorregulação disponível na sala (cantinho para acalmar-se) com recursos sensoriais adequados.</span>
+        </li>
+        <li>
+          <div class="check-box" style="color: var(--laranja);" onclick="toggleCheck(this)"></div>
+          <span>Atribua responsabilidades ao estudante na dinâmica da turma — pertencimento e reconhecimento social têm papel preventivo no comportamento desafiador.</span>
+        </li>
+        <li>
+          <div class="check-box" style="color: var(--laranja);" onclick="toggleCheck(this)"></div>
+          <span>Fique atento aos sinais precoces de frustração (agitação, isolamento, recusa de tarefa) e intervenha antes que o comportamento escale.</span>
+        </li>
+        <li>
+          <div class="check-box" style="color: var(--laranja);" onclick="toggleCheck(this)"></div>
+          <span>Documente os episódios comportamentais com data, contexto, antecedente, comportamento e consequência. Esses registros são valiosos para ajustar as estratégias.</span>
+        </li>
+      </ul>
+
+      <div class="destaque" style="background: var(--lilas-claro); margin-top: 32px;">
+        <span class="icon">🌿</span>
+        <p>Uma observação importante: alguns estudantes precisam de um plano comportamental individualizado, diferente do usado pela turma. Isso não é privilégio — é equidade. O mesmo princípio que orienta as adaptações curriculares se aplica à gestão comportamental.</p>
+      </div>
+    </div>
+    <div class="nav-bottom">
+      <button onclick="goTo(4)">← Anterior</button>
+      <span class="progresso">5 de 13</span>
+      <button onclick="goTo(6)">Próximo →</button>
+    </div>
+  </section>
+
+  <!-- 6. ACOMODAÇÕES -->
+  <section class="section" id="acomodacoes">
+    <div class="sec-header">
+      <span class="sec-tag">Acomodações e Modificações</span>
+      <h2>Planejando para diferentes formas de aprender</h2>
+      <p class="lead">Antes de escolher uma estratégia, observe: onde está a barreira para este estudante? Na recepção da informação, no processamento ou na expressão do que aprendeu?</p>
+    </div>
+    <div class="sec-body">
+
+      <div class="destaque" style="background: #FFF8DC;">
+        <span class="icon">📌</span>
+        <div>
+          <p><strong>Lembre-se:</strong> as acomodações e modificações previstas no PDI/PEI são exigidas por lei. Não as implementar configura negação de direito. Ao mesmo tempo, elas não são "vantagem" — são o nivelamento do campo para que o estudante demonstre o que realmente sabe.</p>
+        </div>
+      </div>
+
+      <div class="tabela-comp">
+        <div class="tabela-col" style="background: #EEF5FF;">
+          <h3 style="color: var(--azul);">🔧 Acomodações</h3>
+          <p class="def">Mudanças na <strong>forma</strong> de apresentar ou avaliar o conteúdo. O que é ensinado e a expectativa de resultado <strong>não mudam</strong>.</p>
+          <ul>
+            <li>Sentar próximo ao professor ou ao quadro</li>
+            <li>Respostas orais em vez de escritas</li>
+            <li>Tempo adicional para completar tarefas ou provas</li>
+            <li>Verificação da compreensão: pedir ao estudante para repetir as instruções</li>
+            <li>Pistas visuais e verbais extras</li>
+            <li>Uso de calculadora</li>
+            <li>Pausas programadas durante atividades longas</li>
+            <li>Formato alternativo de prova (múltipla escolha, oral)</li>
+            <li>Linha numérica fixada na mesa</li>
+            <li>Uso de tecnologia assistiva (leitor de tela, comunicador)</li>
+            <li>Prova em ambiente com menos distrações</li>
+          </ul>
+        </div>
+        <div class="tabela-col" style="background: var(--laranja-claro);">
+          <h3 style="color: var(--laranja);">✏️ Modificações</h3>
+          <p class="def">Mudanças no <strong>conteúdo ou nas expectativas</strong> de aprendizagem. O que é ensinado ou avaliado é <strong>diferente</strong> do restante da turma.</p>
+          <ul>
+            <li>Redução no número de questões ou itens</li>
+            <li>Banco de palavras para respostas em provas</li>
+            <li>Material em nível de complexidade diferente</li>
+            <li>Projeto ou trabalho alternativo</li>
+            <li>Prova com consulta ao caderno</li>
+            <li>Esboço em vez de redação completa</li>
+            <li>Menos palavras no ditado ou teste de ortografia</li>
+            <li>Questões diferentes das da turma</li>
+            <li>Rubrica de avaliação alternativa</li>
+            <li>Objetivos de aprendizagem adaptados ao momento do estudante</li>
+          </ul>
+        </div>
+      </div>
+
+      <h4 style="margin-top: 40px;">Estratégias gerais para o planejamento de aulas</h4>
+      <ul class="checklist">
+        <li>
+          <div class="check-box" style="color: var(--azul);" onclick="toggleCheck(this)"></div>
+          <span><strong>Use recursos visuais sempre que possível:</strong> imagens, diagramas, esquemas e organizadores gráficos beneficiam não apenas estudantes com deficiência, mas toda a turma.</span>
+        </li>
+        <li>
+          <div class="check-box" style="color: var(--azul);" onclick="toggleCheck(this)"></div>
+          <span><strong>Divida a aula em blocos menores:</strong> alternando entre exposição, prática e consolidação, você reduz a sobrecarga cognitiva e aumenta o engajamento.</span>
+        </li>
+        <li>
+          <div class="check-box" style="color: var(--azul);" onclick="toggleCheck(this)"></div>
+          <span><strong>Repita as instruções de formas diferentes:</strong> verbal, visual e escrita. Peça ao estudante que repita o que entendeu — isso não é desconfiança, é verificação de compreensão.</span>
+        </li>
+        <li>
+          <div class="check-box" style="color: var(--azul);" onclick="toggleCheck(this)"></div>
+          <span><strong>Disponibilize materiais de referência:</strong> linha numérica, tabela periódica simplificada, mapa gramatical, cronogramas visuais — conforme a disciplina e as necessidades do estudante.</span>
+        </li>
+        <li>
+          <div class="check-box" style="color: var(--azul);" onclick="toggleCheck(this)"></div>
+          <span><strong>Ofereça elogios específicos e frequentes:</strong> "Você conseguiu resolver as duas primeiras etapas sozinho!" é mais útil do que "Muito bem!" — especifica o que foi feito bem.</span>
+        </li>
+        <li>
+          <div class="check-box" style="color: var(--azul);" onclick="toggleCheck(this)"></div>
+          <span><strong>Pense em múltiplas formas de expressão:</strong> o estudante pode demonstrar o que sabe por desenho, fala, digitação, dramatização, vídeo — não apenas por escrita convencional.</span>
+        </li>
+      </ul>
+    </div>
+    <div class="nav-bottom">
+      <button onclick="goTo(5)">← Anterior</button>
+      <span class="progresso">6 de 13</span>
+      <button onclick="goTo(7)">Próximo →</button>
+    </div>
+  </section>
+
+  <!-- 7. AVALIAÇÃO -->
+  <section class="section" id="avaliacoes">
+    <div class="sec-header">
+      <span class="sec-tag">Objetivos e Avaliação</span>
+      <h2>Gerenciando metas e acompanhando o progresso</h2>
+      <p class="lead">Avaliar o estudante público da educação especial é muito mais do que verificar se ele atingiu metas numéricas — é acompanhar o processo, documentar avanços qualitativos e ajustar o caminho.</p>
+    </div>
+    <div class="sec-body">
+
+      <h4>Organizando a pasta de acompanhamento</h4>
+      <ul class="checklist">
+        <li>
+          <div class="check-box" style="color: var(--rosa);" onclick="toggleCheck(this)"></div>
+          <span>Coloque os objetivos do PDI/PEI na pasta, à esquerda, com espaço para registro de datas e observações.</span>
+        </li>
+        <li>
+          <div class="check-box" style="color: var(--rosa);" onclick="toggleCheck(this)"></div>
+          <span>Coloque as avaliações e atividades relacionadas a cada objetivo à direita, organizadas cronologicamente.</span>
+        </li>
+        <li>
+          <div class="check-box" style="color: var(--rosa);" onclick="toggleCheck(this)"></div>
+          <span>Adicione amostras de trabalho do estudante (não apenas as melhores — também as que mostram o processo de aprendizagem).</span>
+        </li>
+        <li>
+          <div class="check-box" style="color: var(--rosa);" onclick="toggleCheck(this)"></div>
+          <span>Registre notas anedóticas — observações qualitativas sobre o comportamento, a interação, as reações emocionais e os avanços que não aparecem em dados numéricos.</span>
+        </li>
+        <li>
+          <div class="check-box" style="color: var(--rosa);" onclick="toggleCheck(this)"></div>
+          <span>Defina momentos periódicos (quinzenais ou mensais) para revisar o progresso em cada objetivo. Registre a data e suas impressões.</span>
+        </li>
+      </ul>
+
+      <div class="destaque" style="background: var(--rosa-claro); margin-top: 32px;">
+        <span class="icon">📝</span>
+        <div>
+          <p><strong>Sobre as notas anedóticas:</strong> são observações informais e contextualizadas sobre o estudante — suas atitudes, interações, avanços sutis, dificuldades que não aparecem em testes. Longe de serem secundárias, essas anotações frequentemente revelam aspectos do desenvolvimento que os dados numéricos não capturam. Anote com data, contexto e o que você observou, sem julgamentos — apenas descrição.</p>
+        </div>
+      </div>
+
+      <h4>Objetivos bem escritos: o critério SMART adaptado</h4>
+      <p style="font-size:0.9rem; color:#555; line-height:1.7; max-width:640px;">Os objetivos do PDI/PEI devem ser <strong>Específicos, Mensuráveis, Alcançáveis, Relevantes e com Prazo definido</strong> — mas também precisam ser <strong>significativos</strong> para a vida do estudante, não apenas mensuráveis para a escola.</p>
+
+      <div class="destaque" style="background: var(--verde-claro); margin-top: 20px;">
+        <span class="icon">✅</span>
+        <div>
+          <p><strong>Exemplo de objetivo bem elaborado:</strong><br>
+          "Quando apresentado a textos instrucionais curtos de seu interesse, João identificará a ideia principal em pelo menos 4 de 5 tentativas, com apoio de organizador gráfico, até o final do 1º semestre."</p>
+          <p style="margin-top: 8px; font-size: 0.8rem; opacity: 0.8;">Observe: o objetivo especifica o contexto (textos instrucionais de interesse), a condição de apoio (organizador gráfico), o critério de desempenho (4 de 5) e o prazo.</p>
+        </div>
+      </div>
+
+      <h4 style="margin-top: 32px;">Avaliação processual e portfólio</h4>
+      <p style="font-size:0.9rem; color:#555; line-height:1.7; max-width:640px; margin-bottom: 16px;">A avaliação de estudantes público da educação especial deve ir além da verificação de produtos finais. A avaliação <strong>processual</strong> acompanha o percurso de aprendizagem, valorizando o esforço, a evolução e as estratégias usadas pelo estudante. O <strong>portfólio</strong> é uma ferramenta poderosa para isso:</p>
+
+      <div class="cards-grid">
+        <div class="card">
+          <span class="card-icon">📁</span>
+          <h3>O que incluir no portfólio</h3>
+          <ul>
+            <li>Amostras de trabalho em diferentes momentos do ano</li>
+            <li>Registros de leitura e escrita ao longo do tempo</li>
+            <li>Fotos de atividades práticas ou projetos</li>
+            <li>Autoavaliações do estudante (quando possível)</li>
+            <li>Notas anedóticas do professor</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="card-icon">📊</span>
+          <h3>Como usar o portfólio</h3>
+          <ul>
+            <li>Para mostrar progressos à família de forma concreta</li>
+            <li>Para embasar reuniões de revisão do PDI/PEI</li>
+            <li>Para o estudante perceber sua própria trajetória</li>
+            <li>Para comunicar avanços à gestão pedagógica</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="destaque" style="background: #EEF5FF; margin-top: 32px;">
+        <span class="icon">⚖️</span>
+        <p>Se você perceber que um objetivo do PDI/PEI não está mais adequado ao momento do estudante — seja porque é muito fácil ou muito difícil —, registre sua observação e solicite formalmente uma revisão ao professor de AEE. Objetivos desatualizados não orientam a prática e podem frustrar o estudante.</p>
+      </div>
+    </div>
+    <div class="nav-bottom">
+      <button onclick="goTo(6)">← Anterior</button>
+      <span class="progresso">7 de 13</span>
+      <button onclick="goTo(8)">Próximo →</button>
+    </div>
+  </section>
+
+  <!-- 8. MATERIAIS -->
+  <section class="section" id="materiais">
+    <div class="sec-header">
+      <span class="sec-tag">Materiais Úteis</span>
+      <h2>Recursos práticos para o dia a dia</h2>
+      <p class="lead">Estes materiais apoiam diferentes necessidades. Nem todos serão úteis para todos os estudantes — escolha com base no perfil de aprendizagem de cada um, conforme orientado no PDI/PEI.</p>
+    </div>
+    <div class="sec-body">
+      <div class="mat-grid">
+        <div class="mat-card" style="background: #EEF5FF;">
+          <h3 style="color: var(--azul);">📖 Leitura</h3>
+          <ul>
+            <li>Marcador de texto / régua de leitura</li>
+            <li>Rastreador de leitura</li>
+            <li>Cartaz do alfabeto</li>
+            <li>Cartaz de sílabas e dígrafos</li>
+            <li>Letras magnéticas ou em relevo</li>
+            <li>Lousas de apagar a seco</li>
+            <li>Livro de vocabulário pessoal</li>
+            <li>Fones de ouvido (para leitura em voz alta)</li>
+            <li>Textos em diferentes formatos (impresso, digital, em áudio)</li>
+            <li>Aplicativos de leitura com síntese de voz</li>
+          </ul>
+        </div>
+        <div class="mat-card" style="background: var(--verde-claro);">
+          <h3 style="color: var(--verde);">✍️ Escrita</h3>
+          <ul>
+            <li>Organizador gráfico / mapa conceitual</li>
+            <li>Banco de palavras temático</li>
+            <li>Mural de palavras da turma</li>
+            <li>Cartaz do alfabeto cursivo e bastão</li>
+            <li>Lousa de apagar a seco (para rascunho)</li>
+            <li>Teclado físico ou digital (alternativa à escrita manual)</li>
+            <li>Corretor ortográfico habilitado</li>
+            <li>Pautas ampliadas ou adaptadas</li>
+            <li>Gravador de voz (para ditado ao invés de escrita)</li>
+          </ul>
+        </div>
+        <div class="mat-card" style="background: var(--amarelo);">
+          <h3 style="color: #7a5e00;">🔢 Matemática</h3>
+          <ul>
+            <li>Linha numérica (fixada na mesa)</li>
+            <li>Tabela de centenas</li>
+            <li>Calculadora</li>
+            <li>Material concreto: contadores, cubos, palitos</li>
+            <li>Relógio analógico com ponteiros móveis</li>
+            <li>Gráfico de moedas e cédulas</li>
+            <li>Papel quadriculado para alinhamento</li>
+            <li>Fichas de fatos matemáticos</li>
+            <li>Aplicativos de matemática visual</li>
+          </ul>
+        </div>
+        <div class="mat-card" style="background: var(--laranja-claro);">
+          <h3 style="color: var(--laranja);">🧘 Comportamento e Regulação</h3>
+          <ul>
+            <li>Cronograma visual da aula</li>
+            <li>Quadro de fichas / sistema de pontos</li>
+            <li>Área para autorregulação (cantinho calmo)</li>
+            <li>Temporizador visual (tipo Time Timer)</li>
+            <li>Materiais sensoriais (bola antiestresse, fidget)</li>
+            <li>Regras da sala em formato visual</li>
+            <li>Cartões de escolhas (para comunicação alternativa)</li>
+            <li>Assentos flexíveis (almofada, cadeira especial)</li>
+            <li>Fones de ouvido com cancelamento de ruído</li>
+          </ul>
+        </div>
+        <div class="mat-card" style="background: var(--lilas-claro);">
+          <h3 style="color: var(--lilas);">💻 Tecnologia Assistiva</h3>
+          <ul>
+            <li>Softwares de síntese de voz (leitores de tela)</li>
+            <li>Comunicadores alternativos (Tobii, LetMeTalk, Cboard)</li>
+            <li>PECS — sistema de comunicação por figuras</li>
+            <li>Aplicativos de apoio à leitura e escrita</li>
+            <li>Lupas eletrônicas</li>
+            <li>Teclados adaptados</li>
+            <li>Softwares de mapas mentais</li>
+            <li>Plataformas de acessibilidade (Libras, audiodescrição)</li>
+          </ul>
+        </div>
+        <div class="mat-card" style="background: var(--rosa-claro);">
+          <h3 style="color: var(--rosa);">🎨 Materiais de Alto Engajamento</h3>
+          <ul>
+            <li>Materiais de desenho e arte (para expressão alternativa)</li>
+            <li>Quebra-cabeças temáticos</li>
+            <li>Jogos de mesa pedagógicos</li>
+            <li>Livros de alto interesse e leitura mais acessível</li>
+            <li>Aplicativos e jogos educativos digitais</li>
+            <li>Vídeos curtos com legendas</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="destaque" style="background: #EEF5FF; margin-top: 32px;">
+        <span class="icon">💡</span>
+        <p>Muitos desses recursos beneficiam <strong>toda a turma</strong>, não apenas o estudante público da educação especial. Organizadores gráficos, cronogramas visuais e múltiplas formas de expressão são estratégias de <strong>design universal para a aprendizagem (DUA)</strong> — um princípio que orienta planejamento inclusivo de qualidade.</p>
+      </div>
+    </div>
+    <div class="nav-bottom">
+      <button onclick="goTo(7)">← Anterior</button>
+      <span class="progresso">8 de 13</span>
+      <button onclick="goTo(9)">Próximo →</button>
+    </div>
+  </section>
+
+  <!-- 9. EQUIPE -->
+  <section class="section" id="equipe">
+    <div class="sec-header">
+      <span class="sec-tag">Quem Faz o Quê?</span>
+      <h2>Entendendo os papéis da equipe de inclusão</h2>
+      <p class="lead">A inclusão é um trabalho coletivo. Conhecer as responsabilidades de cada profissional evita sobrecarga, conflitos e lacunas no atendimento ao estudante.</p>
+    </div>
+    <div class="sec-body">
+
+      <div class="equipe-grid">
+        <div class="equipe-card" style="background: #EEF5FF; border-color: var(--azul);">
+          <div class="resp">Professor Regente</div>
+          <h3>Você</h3>
+          <ul>
+            <li>Responsável pelo processo de ensino e aprendizagem na sala comum</li>
+            <li>Implementa as acomodações e modificações previstas no PDI/PEI</li>
+            <li>Documenta o progresso e os desafios do estudante</li>
+            <li>Informa o professor de AEE sobre avanços e dificuldades observadas</li>
+            <li>Participa da elaboração e revisão do PDI/PEI</li>
+            <li>Promove a participação e o pertencimento do estudante na turma</li>
+          </ul>
+        </div>
+        <div class="equipe-card" style="background: var(--lilas-claro); border-color: var(--lilas);">
+          <div class="resp" style="color: var(--lilas);">Professor de AEE</div>
+          <h3>Articulador pedagógico</h3>
+          <ul>
+            <li>Conduz o Estudo de Caso e elabora o PAEE</li>
+            <li>Articula o PAEE com o PDI/PEI da sala regular</li>
+            <li>Oferece o atendimento especializado na sala de recursos</li>
+            <li>Orienta o professor regente sobre estratégias e recursos</li>
+            <li>Faz a ponte entre escola, família e profissionais externos</li>
+            <li>Acompanha e avalia o progresso do estudante no AEE</li>
+          </ul>
+        </div>
+        <div class="equipe-card" style="background: var(--verde-claro); border-color: var(--verde);">
+          <div class="resp" style="color: var(--verde);">Profissional de Apoio Escolar</div>
+          <h3>Apoio à participação</h3>
+          <ul>
+            <li>Apoia o estudante em locomoção, alimentação e comunicação</li>
+            <li>Facilita a participação nas atividades pedagógicas</li>
+            <li>Não substitui o professor — não é responsável pelo ensino</li>
+            <li>Atua conforme definido no PAEE, não de forma autônoma</li>
+            <li>Reporta observações ao professor regente e ao AEE</li>
+          </ul>
+        </div>
+        <div class="equipe-card" style="background: var(--amarelo); border-color: var(--amarelo-escuro);">
+          <div class="resp" style="color: #7a5e00;">Família</div>
+          <h3>Parceira insubstituível</h3>
+          <ul>
+            <li>Fonte primária de conhecimento sobre o estudante fora da escola</li>
+            <li>Participa da elaboração e revisão do PDI/PEI</li>
+            <li>Compartilha informações relevantes sobre rotina, saúde e preferências</li>
+            <li>Deve ser mantida informada sobre progressos — não apenas dificuldades</li>
+            <li>Tem direito a participar ativamente das decisões sobre o filho</li>
+          </ul>
+        </div>
+        <div class="equipe-card" style="background: var(--laranja-claro); border-color: var(--laranja);">
+          <div class="resp" style="color: var(--laranja);">Profissionais Externos</div>
+          <h3>Terapeutas e especialistas</h3>
+          <ul>
+            <li>Fonoaudiólogo, terapeuta ocupacional, psicólogo, etc.</li>
+            <li>Não têm atuação direta na sala de aula</li>
+            <li>Suas orientações devem ser integradas pela equipe escolar via AEE</li>
+            <li>Laudos e relatórios terapêuticos informam — mas não substituem a avaliação pedagógica</li>
+          </ul>
+        </div>
+        <div class="equipe-card" style="background: var(--rosa-claro); border-color: var(--rosa);">
+          <div class="resp" style="color: var(--rosa);">O Próprio Estudante</div>
+          <h3>Protagonista do processo</h3>
+          <ul>
+            <li>Tem direito a conhecer e participar das decisões sobre seu plano de ensino</li>
+            <li>Deve ser ouvido sobre o que funciona e o que não funciona para ele</li>
+            <li>Sua perspectiva é válida e informa o planejamento pedagógico</li>
+            <li>O protagonismo respeita suas possibilidades comunicativas e faixa etária</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="destaque" style="background: #EEF5FF; margin-top: 32px;">
+        <span class="icon">⚠️</span>
+        <div>
+          <p><strong>Atenção — confusão comum:</strong> o profissional de apoio escolar <strong>não é um auxiliar de classe geral</strong> e não deve ser desviado de sua função para atender outros estudantes ou realizar tarefas administrativas. Sua presença é vinculada ao estudante específico previsto no PAEE, conforme o Decreto nº 12.686/2025, Art. 14.</p>
+        </div>
+      </div>
+    </div>
+    <div class="nav-bottom">
+      <button onclick="goTo(8)">← Anterior</button>
+      <span class="progresso">9 de 13</span>
+      <button onclick="goTo(10)">Próximo →</button>
+    </div>
+  </section>
+
+  <!-- 10. CRISE -->
+  <section class="section" id="crise">
+    <div class="sec-header">
+      <span class="sec-tag">Situações de Crise</span>
+      <h2>O que fazer — e o que evitar — em momentos difíceis</h2>
+      <p class="lead">Situações de crise (desregulação emocional intensa, crise sensorial, recusa escolar, isolamento) são momentos de alta vulnerabilidade para o estudante. A resposta do professor faz toda a diferença.</p>
+    </div>
+    <div class="sec-body">
+
+      <div class="destaque" style="background: var(--laranja-claro);">
+        <span class="icon">🔑</span>
+        <p><strong>Princípio fundamental:</strong> durante uma crise, o estudante não está sendo "difícil" intencionalmente — ele está em sofrimento e seu sistema nervoso está sobrecarregado. O objetivo não é "ganhar" a situação, mas ajudar o estudante a se reorganizar com segurança.</p>
+      </div>
+
+      <div class="crise-grid">
+        <div class="crise-col" style="background: var(--verde-claro);">
+          <h3 style="color: var(--verde);">✅ O que FAZER</h3>
+          <ul>
+            <li><span>🎯</span> Mantenha a calma — sua regulação emocional co-regula a dele</li>
+            <li><span>🔇</span> Reduza estímulos (baixe a voz, reduza iluminação se possível)</li>
+            <li><span>🚶</span> Ofereça uma saída honrosa — não force a permanência na situação</li>
+            <li><span>🧘</span> Direcione para o espaço de autorregulação, se disponível</li>
+            <li><span>🗣️</span> Use frases curtas, calmas e diretas: "Eu estou aqui. Você está seguro."</li>
+            <li><span>⏳</span> Dê tempo — não exija retomada imediata da atividade</li>
+            <li><span>📋</span> Acione o profissional de apoio ou o professor de AEE, se necessário</li>
+            <li><span>📝</span> Registre o episódio depois (contexto, duração, o que ajudou)</li>
+            <li><span>👥</span> Cuide do restante da turma com uma atividade autônoma</li>
+          </ul>
+        </div>
+        <div class="crise-col" style="background: var(--rosa-claro);">
+          <h3 style="color: var(--rosa);">❌ O que EVITAR</h3>
+          <ul>
+            <li><span>🚫</span> Elevar o tom de voz ou demonstrar irritação</li>
+            <li><span>🚫</span> Confrontar diretamente durante a crise — o diálogo vem depois</li>
+            <li><span>🚫</span> Retirar recompensas ou ameaçar punições no momento da crise</li>
+            <li><span>🚫</span> Expor o estudante ao julgamento da turma</li>
+            <li><span>🚫</span> Insistir em completar a tarefa durante ou logo após a crise</li>
+            <li><span>🚫</span> Ignorar completamente — mesmo que o estudante precise de espaço, ele precisa saber que você está presente</li>
+            <li><span>🚫</span> Tocar o estudante sem seu consentimento (especialmente em crises sensoriais)</li>
+            <li><span>🚫</span> Tratar a crise como "birra" ou comportamento manipulador</li>
+          </ul>
+        </div>
+      </div>
+
+      <h4 style="margin-top: 36px;">Quando acionar outros profissionais</h4>
+      <ul class="checklist">
+        <li>
+          <div class="check-box" style="color: var(--laranja);" onclick="toggleCheck(this)"></div>
+          <span>Quando a segurança do estudante ou de outros está em risco</span>
+        </li>
+        <li>
+          <div class="check-box" style="color: var(--laranja);" onclick="toggleCheck(this)"></div>
+          <span>Quando a crise se prolonga além de 10-15 minutos sem sinais de melhora</span>
+        </li>
+        <li>
+          <div class="check-box" style="color: var(--laranja);" onclick="toggleCheck(this)"></div>
+          <span>Quando o estudante apresenta sintomas físicos (dificuldade respiratória, dissociação)</span>
+        </li>
+        <li>
+          <div class="check-box" style="color: var(--laranja);" onclick="toggleCheck(this)"></div>
+          <span>Quando você percebe que é a figura que está gerando o desconforto (chame outro adulto de confiança do estudante)</span>
+        </li>
+      </ul>
+
+      <div class="destaque" style="background: #EEF5FF; margin-top: 24px;">
+        <span class="icon">💬</span>
+        <p><strong>Depois da crise:</strong> quando o estudante estiver calmo — não logo, mas em um momento tranquilo — retome o que aconteceu de forma breve, sem julgamento. "Percebi que você ficou muito agitado hoje. O que aconteceu?" Esse diálogo fortalece o vínculo e pode revelar causas que você ainda não conhecia.</p>
+      </div>
+    </div>
+    <div class="nav-bottom">
+      <button onclick="goTo(9)">← Anterior</button>
+      <span class="progresso">10 de 13</span>
+      <button onclick="goTo(11)">Próximo →</button>
+    </div>
+  </section>
+
+  <!-- 11. LEGISLAÇÃO -->
+  <section class="section" id="legislacao">
+    <div class="sec-header">
+      <span class="sec-tag">O Que Diz a Lei</span>
+      <h2>Seus direitos e os direitos do estudante</h2>
+      <p class="lead">Conhecer a legislação é essencial para agir com segurança, cobrar o suporte que lhe é devido e garantir os direitos do estudante.</p>
+    </div>
+    <div class="sec-body">
+
+      <div class="lei-card" style="background: #EEF5FF; border-color: var(--azul);">
+        <h3>Constituição Federal (1988)</h3>
+        <p>Garante o direito à educação para todos (Art. 205) e o atendimento educacional especializado para pessoas com deficiência, preferencialmente na rede regular de ensino (Art. 208, III). É a base constitucional da educação inclusiva no Brasil.</p>
+      </div>
+
+      <div class="lei-card" style="background: var(--verde-claro); border-color: var(--verde);">
+        <h3>Lei Brasileira de Inclusão — LBI (Lei nº 13.146/2015)</h3>
+        <p>Institui o direito à educação inclusiva em todos os níveis e modalidades, proíbe a cobrança de qualquer valor adicional para a matrícula de estudante com deficiência em escola regular, veda a recusa de matrícula com base em deficiência ou TEA, e garante o direito a profissional de apoio escolar, tecnologias assistivas e adaptações razoáveis.</p>
+      </div>
+
+      <div class="lei-card" style="background: var(--lilas-claro); border-color: var(--lilas);">
+        <h3>Decreto nº 12.686/2025 — Política Nacional de Educação Especial Inclusiva</h3>
+        <p>Regulamenta a educação especial na perspectiva inclusiva. Define os papéis do professor de AEE e do profissional de apoio escolar, institui o Estudo de Caso e o PAEE como instrumentos centrais, garante que a elegibilidade para o AEE não depende de laudo médico, e estabelece o protagonismo do estudante em seu plano de atendimento. Também prevê formação continuada para professores financiada pela União.</p>
+      </div>
+
+      <div class="lei-card" style="background: var(--amarelo); border-color: var(--amarelo-escuro);">
+        <h3>Resolução CNE/CEB nº 4/2009</h3>
+        <p>Institui as diretrizes operacionais para o Atendimento Educacional Especializado na Educação Básica, definindo como o AEE deve ser organizado, quem são seus professores e qual é sua relação com a sala de aula regular.</p>
+      </div>
+
+      <div class="lei-card" style="background: var(--laranja-claro); border-color: var(--laranja);">
+        <h3>BNCC — Base Nacional Comum Curricular</h3>
+        <p>Orienta que as redes e escolas assegurem condições de acesso, participação e aprendizagem a todos os estudantes, e que o currículo seja flexível para atender às especificidades dos estudantes público da educação especial.</p>
+      </div>
+
+      <h4 style="margin-top: 36px;">Direitos práticos que você precisa conhecer</h4>
+      <div class="cards-grid">
+        <div class="card">
+          <span class="card-icon">📋</span>
+          <h3>Direito do estudante: sem exigência de laudo</h3>
+          <p>As adaptações e o AEE não podem ser condicionados à apresentação de diagnóstico médico. A avaliação pedagógica é suficiente para iniciar o atendimento.</p>
+        </div>
+        <div class="card">
+          <span class="card-icon">🚫</span>
+          <h3>Direito do estudante: não pode ser recusado</h3>
+          <p>Nenhuma escola regular pode recusar a matrícula de estudante com deficiência ou TEA. Isso é crime previsto na LBI (Art. 8º).</p>
+        </div>
+        <div class="card">
+          <span class="card-icon">📚</span>
+          <h3>Direito do professor: formação continuada</h3>
+          <p>O Decreto nº 12.686/2025 prevê que a União apoiará estados e municípios na oferta de formação continuada para professores da educação especial e regentes. Você tem direito a formação — reivindique-a.</p>
+        </div>
+        <div class="card">
+          <span class="card-icon">🤝</span>
+          <h3>Direito do professor: suporte pedagógico</h3>
+          <p>O professor regente não deve ser deixado sozinho na inclusão. O sistema deve garantir professor de AEE, profissional de apoio (quando previsto) e tempo de planejamento colaborativo.</p>
+        </div>
+      </div>
+    </div>
+    <div class="nav-bottom">
+      <button onclick="goTo(10)">← Anterior</button>
+      <span class="progresso">11 de 13</span>
+      <button onclick="goTo(12)">Próximo →</button>
+    </div>
+  </section>
+
+  <!-- 12. AUTOCUIDADO -->
+  <section class="section" id="autocuidado">
+    <div class="sec-header">
+      <span class="sec-tag">Cuidando de Você</span>
+      <h2>O professor também precisa de apoio</h2>
+      <p class="lead">Uma prática inclusiva sustentável começa com um professor que se conhece, reconhece seus limites e cuida de si. Autocuidado não é egoísmo — é condição para o cuidado com o outro.</p>
+    </div>
+    <div class="sec-body">
+
+      <div class="destaque" style="background: var(--rosa-claro);">
+        <span class="icon">💛</span>
+        <p>A sobrecarga emocional e profissional dos professores que trabalham com estudantes público da educação especial — especialmente sem formação e suporte adequados — é um dado amplamente documentado. Reconhecer isso não é fraqueza: é o primeiro passo para agir de forma mais saudável e eficaz.</p>
+      </div>
+
+      <div class="autocuidado-grid">
+        <div class="ac-card" style="background: var(--rosa-claro);">
+          <span class="emoji">🔍</span>
+          <h3>Reconheça seus limites</h3>
+          <p>Você não precisa saber tudo sobre todas as condições. Não saber é o ponto de partida para buscar ajuda. Peça orientação ao professor de AEE — isso é profissionalismo, não incompetência.</p>
+        </div>
+        <div class="ac-card" style="background: var(--lilas-claro);">
+          <span class="emoji">👥</span>
+          <h3>Busque apoio entre pares</h3>
+          <p>Troque experiências com colegas que trabalham com estudantes semelhantes. O isolamento profissional amplifica a sobrecarga. Grupos de troca e supervisão colaborativa fazem diferença.</p>
+        </div>
+        <div class="ac-card" style="background: var(--verde-claro);">
+          <span class="emoji">📚</span>
+          <h3>Invista em formação</h3>
+          <p>Conhecimento reduz ansiedade. Cursos sobre TEA, deficiências específicas, regulação emocional e design universal para a aprendizagem (DUA) transformam a prática e aumentam a confiança.</p>
+        </div>
+        <div class="ac-card" style="background: #EEF5FF;">
+          <span class="emoji">🎯</span>
+          <h3>Celebre os pequenos avanços</h3>
+          <p>Na inclusão, o progresso é frequentemente gradual e sutil. Aprenda a reconhecer e valorizar avanços pequenos — do estudante e seus próprios. Eles importam.</p>
+        </div>
+        <div class="ac-card" style="background: var(--amarelo);">
+          <span class="emoji">✋</span>
+          <h3>Saiba quando pedir ajuda</h3>
+          <p>Se você sente que está no limite — emocionalmente exausto, com sensação de incompetência persistente ou com dificuldade de se importar — procure apoio. A supervisão pedagógica, o serviço de apoio ao servidor ou um profissional de saúde mental são recursos válidos.</p>
+        </div>
+        <div class="ac-card" style="background: var(--laranja-claro);">
+          <span class="emoji">🌿</span>
+          <h3>Cuide do seu corpo e da sua mente</h3>
+          <p>Sono, alimentação, momentos de descanso e atividades fora da escola não são luxo. São infraestrutura para uma prática docente sustentável. Você só pode cuidar do outro se também cuidar de si.</p>
+        </div>
+      </div>
+
+      <div class="destaque" style="background: var(--lilas-claro); margin-top: 40px;">
+        <span class="icon">📌</span>
+        <div>
+          <p><strong>Uma última palavra:</strong> a inclusão é um processo — não um estado a ser alcançado. Haverá dias difíceis, avanços não lineares e momentos de dúvida. O que define uma prática inclusiva de qualidade não é a perfeição, mas a <strong>disposição genuína de olhar para cada estudante em sua singularidade</strong> e continuar aprendendo. Este guia é um ponto de partida. O caminho se faz ao caminhar — junto.</p>
+        </div>
+      </div>
+
+      <div style="margin-top: 40px; padding: 28px; background: var(--cinza-claro); border-radius: 16px;">
+        <h4 style="margin-top: 0;">📎 Referências legais e bibliográficas</h4>
+        <ul style="list-style: none; padding: 0; margin-top: 12px;">
+          <li style="padding: 6px 0; font-size: 0.83rem; border-bottom: 1px solid rgba(0,0,0,0.07); color: #444;">BRASIL. <strong>Constituição da República Federativa do Brasil</strong>. Brasília: 1988.</li>
+          <li style="padding: 6px 0; font-size: 0.83rem; border-bottom: 1px solid rgba(0,0,0,0.07); color: #444;">BRASIL. <strong>Lei nº 13.146</strong>, de 6 de julho de 2015. Lei Brasileira de Inclusão da Pessoa com Deficiência (Estatuto da Pessoa com Deficiência). Brasília: 2015.</li>
+          <li style="padding: 6px 0; font-size: 0.83rem; border-bottom: 1px solid rgba(0,0,0,0.07); color: #444;">BRASIL. <strong>Decreto nº 12.686</strong>, de 2025. Institui a Política Nacional de Educação Especial: Equitativa, Inclusiva e com Aprendizado ao Longo da Vida. Brasília: 2025.</li>
+          <li style="padding: 6px 0; font-size: 0.83rem; border-bottom: 1px solid rgba(0,0,0,0.07); color: #444;">BRASIL. Conselho Nacional de Educação. <strong>Resolução CNE/CEB nº 4</strong>, de 2 de outubro de 2009. Diretrizes Operacionais para o Atendimento Educacional Especializado na Educação Básica.</li>
+          <li style="padding: 6px 0; font-size: 0.83rem; border-bottom: 1px solid rgba(0,0,0,0.07); color: #444;">BRASIL. <strong>Base Nacional Comum Curricular (BNCC)</strong>. Brasília: MEC, 2018.</li>
+          <li style="padding: 6px 0; font-size: 0.83rem; color: #444;">ONU. <strong>Convenção sobre os Direitos das Pessoas com Deficiência</strong>. Nova York: 2006. Promulgada no Brasil pelo Decreto nº 6.949/2009.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="nav-bottom">
+      <button onclick="goTo(11)">← Anterior</button>
+      <span class="progresso">12 de 13</span>
+      <button onclick="goTo(0)">↩ Voltar ao início</button>
+    </div>
+  </section>
+
+</main>
+
+<script>
+  const sections = [
+    'capa-sec','intro','vocabulario','preparacao','comunicacao',
+    'comportamento','acomodacoes','avaliacoes','materiais',
+    'equipe','crise','legislacao','autocuidado'
+  ];
+
+  let current = 0;
+
+  function goTo(idx) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.getElementById(sections[idx]).classList.add('active');
+    document.querySelectorAll('#nav-links a').forEach((a, i) => {
+      a.classList.toggle('active', i === idx);
+    });
+    current = idx;
+    document.getElementById('main').scrollTop = 0;
+    if (window.innerWidth <= 768) {
+      document.getElementById('sidebar').classList.remove('open');
+    }
+  }
+
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+  }
+
+  function toggleCheck(el) {
+    el.classList.toggle('checked');
+  }
+
+  // Fecha sidebar ao clicar fora no mobile
+  document.getElementById('main').addEventListener('click', () => {
+    if (window.innerWidth <= 768) {
+      document.getElementById('sidebar').classList.remove('open');
+    }
+  });
+</script>
+
+</body>
+</html>
